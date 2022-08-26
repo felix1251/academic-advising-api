@@ -12,12 +12,12 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /home/zero/.rbenv/versions/2.6.3/include/ruby-2.6.0
+topdir = /home/felix-iripple/.rbenv/versions/2.6.3/include/ruby-2.6.0
 hdrdir = $(topdir)
-arch_hdrdir = /home/zero/.rbenv/versions/2.6.3/include/ruby-2.6.0/x86_64-linux
+arch_hdrdir = /home/felix-iripple/.rbenv/versions/2.6.3/include/ruby-2.6.0/x86_64-linux
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/home/zero/.rbenv/versions/2.6.3
+prefix = $(DESTDIR)/home/felix-iripple/.rbenv/versions/2.6.3
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
@@ -31,8 +31,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20220517-27679-1s0n6n
-sitelibdir = $(DESTDIR)./.gem.20220517-27679-1s0n6n
+sitearchdir = $(DESTDIR)./.gem.20220711-85436-161t1jj
+sitelibdir = $(DESTDIR)./.gem.20220711-85436-161t1jj
 sitedir = $(rubylibprefix)/site_ruby
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -86,10 +86,10 @@ CCDLFLAGS = -fPIC
 CFLAGS   = $(CCDLFLAGS) $(cflags)  -fPIC $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS = -DHAVE_RB_BLOCK_CALL -DHAVE_RB_ARY_SUBSEQ -I/home/zero/.rbenv/versions/2.6.3/include  $(DEFS) $(cppflags)
+CPPFLAGS = -DHAVE_RB_BLOCK_CALL -DHAVE_RB_ARY_SUBSEQ -I/home/felix-iripple/.rbenv/versions/2.6.3/include  $(DEFS) $(cppflags)
 CXXFLAGS = $(CCDLFLAGS) $(cxxflags) $(ARCH_FLAG)
-ldflags  = -L. -L/home/zero/.rbenv/versions/2.6.3/lib  -fstack-protector-strong -rdynamic -Wl,-export-dynamic
-dldflags = -L/home/zero/.rbenv/versions/2.6.3/lib  -Wl,--compress-debug-sections=zlib 
+ldflags  = -L. -L/home/felix-iripple/.rbenv/versions/2.6.3/lib  -fstack-protector-strong -rdynamic -Wl,-export-dynamic
+dldflags = -L/home/felix-iripple/.rbenv/versions/2.6.3/lib  -Wl,--compress-debug-sections=zlib 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
 LDSHARED = $(CC) -shared

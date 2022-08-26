@@ -1,8 +1,8 @@
 class Api::V1::SubjectsController < ApplicationController
   before_action :authorize_access_request!
   before_action :set_subject, only: [:show, :update, :destroy]
-  VIEW_ROLES = %w[adviser dean system_admin].freeze
-  EDIT_AND_CREATE_ROLES = %w[system_admin].freeze
+  VIEW_ROLES = %w[F D A].freeze
+  EDIT_AND_CREATE_ROLES = %w[A].freeze
 
   # GET /subjects
   def index

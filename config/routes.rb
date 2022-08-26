@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   post 'refresh', controller: :refresh, action: :create
   post 'signin', controller: :signin, action: :create
+  post 'student_signin', controller: :signin, action: :student_login
+  post 'staff_signin', controller: :signin, action: :staff_login
+  post 'admin_signin', controller: :signin, action: :admin_login
   # post 'signup', controller: :signup, action: :create
   delete 'signin', controller: :signin, action: :destroy
   get 'me', controller: :users, action: :me
@@ -28,7 +31,10 @@ Rails.application.routes.draw do
       resources :colleges
       resources :prerequisites
       resources :majors
-      get 'search_student', controller: :users, action: :search_student
+      resources :admins
+      resources :staffs
+      resources :students
+      get 'search_student', controller: :students, action: :search_student
       get 'get_curriculum_by_college_id', controller: :curriculums, action: :get_curriculum_by_college_id
       get 'get_department_by_college_id', controller: :departments, action: :get_department_by_college_id
       get 'find_prerequisites_by_subject_id', controller: :prerequisites, action: 

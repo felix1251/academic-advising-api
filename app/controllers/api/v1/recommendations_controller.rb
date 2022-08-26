@@ -12,12 +12,13 @@ class Api::V1::RecommendationsController < ApplicationController
   end
 
   def get_student_recommended_subjects
-    @enrollments = Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{params["student_id"]} AND 
-                                  e.enrolled_id = recommendations.subject_id
+    @enrollments = Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{params["student_id"]} AND e.enrolled_id = recommendations.subject_id
                                   LEFT JOIN subjects as s ON s.id = recommendations.subject_id
                                   LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
-                                  .select("recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description, c.description AS curriculum_description, s.units, c.id AS curriculum_id, CASE WHEN e.student_id IS NULL THEN 'NO' ELSE 'YES' END AS is_enrolled")
-                                  .where("curriculum_id = #{params["student_curriculum_id"]} ").where("semester = #{params["semester"]}")
+                                  .select("recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description,
+                                  c.description AS curriculum_description, s.units, CASE WHEN e.student_id IS NULL THEN 'NO' ELSE 'YES' END AS is_enrolled")
+                                  .where("curriculum_id = #{params["student_curriculum_id"]}")
+                                  .where("semester = #{params["semester"]}")
                                   .where("is_enrolled = 'NO'")
     render json: @enrollments
   end
@@ -25,12 +26,13 @@ class Api::V1::RecommendationsController < ApplicationController
   def recommendation_year_sem
     get_user = User.find_by_id(params["student_id"])
     recom =  Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{params["student_id"]} AND 
-                                    e.enrolled_id = recommendations.subject_id
-                                    LEFT JOIN subjects as s ON s.id = recommendations.subject_id
-                                    LEFT JOIN enrollments as en ON en.enrolled_id = recommendations.subject_id AND en.student_id = #{params["student_id"]}
-                                    LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
-                                    .select("recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description, c.description AS curriculum_description, en.grade, s.units, c.id AS curriculum_id, CASE WHEN e.student_id IS NULL THEN 'NO' ELSE 'YES' END AS is_enrolled")
-                                    .where("curriculum_id = #{get_user.curriculum_id}")
+                                  e.enrolled_id = recommendations.subject_id
+                                  LEFT JOIN subjects as s ON s.id = recommendations.subject_id
+                                  LEFT JOIN enrollments as en ON en.enrolled_id = recommendations.subject_id AND en.student_id = #{params["student_id"]}
+                                  LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
+                                  .select("recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description, c.description AS curriculum_description,
+                                  en.grade, s.units, c.id AS curriculum_id, CASE WHEN e.student_id IS NULL THEN 'NO' ELSE 'YES' END AS is_enrolled")
+                                  .where("curriculum_id = #{get_user.curriculum_id}")
   
     years = [1, 2, 3, 4]
     sems = [1,2,3]
@@ -46,7 +48,7 @@ class Api::V1::RecommendationsController < ApplicationController
       end
       recom_year_list[year] = object
     end             
-    render json: {rows: recom_year_list, selected_rows: recom.where("en.grade != null").collect(&:subject_id)}
+    render json: { rows: recom_year_list, selected_rows: recom.where("en.grade != null").collect(&:subject_id) }
   end
 
   def check_if_prereq_exist

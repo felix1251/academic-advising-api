@@ -2,8 +2,8 @@ class Api::V1::CurriculumsController < ApplicationController
   before_action :authorize_access_request!
   before_action :set_curriculum, only: [:show, :update, :destroy]
 
-  VIEW_ROLES = %w[adviser dean system_admin].freeze
-  EDIT_AND_CREATE_ROLES = %w[system_admin].freeze
+  VIEW_ROLES = %w[F A D].freeze
+  EDIT_AND_CREATE_ROLES = %w[A].freeze
 
   # GET /curriculums
   def index

@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_26_141507) do
+ActiveRecord::Schema.define(version: 2022_07_26_064754) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "password_digest"
+    t.string "first_name", null: false
+    t.string "middle_name", null: false
+    t.string "last_name", null: false
+    t.string "suffix", default: ""
+    t.string "gender", null: false
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "username"
+  end
 
   create_table "colleges", force: :cascade do |t|
     t.string "code", default: "", null: false
@@ -43,12 +57,12 @@ ActiveRecord::Schema.define(version: 2022_06_26_141507) do
 
   create_table "enrollments", force: :cascade do |t|
     t.integer "enrolled_id", null: false
-    t.integer "student_id", null: false
     t.integer "sem", null: false
     t.datetime "datetime_enrolled", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "grade", default: ""
+    t.integer "student_id"
     t.index ["enrolled_id"], name: "index_enrollments_on_enrolled_id"
     t.index ["student_id"], name: "index_enrollments_on_student_id"
   end
@@ -82,6 +96,46 @@ ActiveRecord::Schema.define(version: 2022_06_26_141507) do
     t.integer "year"
     t.index ["curriculum_id"], name: "index_recommendations_on_curriculum_id"
     t.index ["subject_id"], name: "index_recommendations_on_subject_id"
+  end
+
+  create_table "staffs", force: :cascade do |t|
+    t.string "password_digest"
+    t.string "first_name", null: false
+    t.string "middle_name", null: false
+    t.string "last_name", null: false
+    t.string "suffix", default: ""
+    t.string "gender", null: false
+    t.integer "college_id", null: false
+    t.integer "curriculum_id"
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "username"
+    t.boolean "dean", default: false
+    t.index ["college_id"], name: "index_staffs_on_college_id"
+    t.index ["curriculum_id"], name: "index_staffs_on_curriculum_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "password_digest"
+    t.string "first_name", null: false
+    t.string "middle_name", null: false
+    t.string "last_name", null: false
+    t.string "suffix", default: ""
+    t.string "gender", null: false
+    t.integer "college_id", null: false
+    t.integer "curriculum_id", null: false
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "username"
+    t.integer "id_number", null: false
+    t.integer "adviser_id", null: false
+    t.index ["adviser_id"], name: "index_students_on_adviser_id"
+    t.index ["college_id"], name: "index_students_on_college_id"
+    t.index ["curriculum_id"], name: "index_students_on_curriculum_id"
   end
 
   create_table "subjects", force: :cascade do |t|

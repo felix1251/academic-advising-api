@@ -8,25 +8,18 @@ class Api::V1::UsersController < ApplicationController
   STUDENT_PARAMS = [:email, :password, :password_confirmation, :fullname, :role, :college_id, :curriculum_id, :id_number].freeze
   ADVISER_PARAMS = [:email, :password, :password_confirmation, :fullname, :role, :college_id, :curriculum_id].freeze
   
-  VIEW_ROLES = %w[adviser dean system_admin].freeze
-  EDIT_AND_CREATE_ROLES = %w[system_admin].freeze
+  VIEW_ROLES = %w[F D A].freeze
+  EDIT_AND_CREATE_ROLES = %w[A].freeze
 
   def index
     @users = User.joins("LEFT JOIN colleges as c ON c.id = users.college_id
                         LEFT JOIN curriculums as cu ON cu.id = users.curriculum_id")
                         .select('users.id, users.id_number,  users.email, users.role, users.fullname, 
-                        users.college_id, users.curriculum_id, c.code AS college_code, cu.code AS curriculum_code')
-                               
-    if current_user.role == "system_admin"
-      @users = @users
-    else
-      @users = @users.where(role: current_user.role)
+                        users.college_id, users.curriculum_id, c.code AS college_code, cu.code AS curriculum_code')   
+                        
+    if payload["aud"].include?("A")
+      render json: @users
     end
-
-    if params[:role].present? && current_user.role == "system_admin"
-      @users = @users.where(role: params[:role])
-    end
-    render json: @users
   end
 
   def search_student

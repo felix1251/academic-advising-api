@@ -1,0 +1,27 @@
+current directory: /home/felix-iripple/Desktop/amjad/academic_advising/academic_advising_backend/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.12.0/ext/bootsnap
+/home/felix-iripple/.rbenv/versions/2.6.3/bin/ruby -I /home/felix-iripple/.rbenv/versions/2.6.3/lib/ruby/2.6.0 -r ./siteconf20220711-85436-18b85ty.rb extconf.rb
+creating Makefile
+
+current directory: /home/felix-iripple/Desktop/amjad/academic_advising/academic_advising_backend/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.12.0/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /home/felix-iripple/Desktop/amjad/academic_advising/academic_advising_backend/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.12.0/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+bootsnap.c: In function ‘bs_rb_fetch’:
+bootsnap.c:313:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+  313 |   char * cachedir = RSTRING_PTR(cachedir_v);
+      |   ^~~~
+bootsnap.c: In function ‘bs_rb_precompile’:
+bootsnap.c:340:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+  340 |   char * cachedir = RSTRING_PTR(cachedir_v);
+      |   ^~~~
+bootsnap.c: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /home/felix-iripple/Desktop/amjad/academic_advising/academic_advising_backend/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.12.0/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20220711-85436-434wqs/bootsnap

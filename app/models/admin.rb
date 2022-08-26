@@ -1,0 +1,11 @@
+class Admin < ApplicationRecord
+      include ActiveModel::Serializers::JSON
+      has_secure_password
+      validates :email, presence: false, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
+      validates :username, presence: true, uniqueness: { case_sensitive: false }
+      enum role: {male: "male", female: "female"}
+      
+      def attributes
+            { id: id, email: email, first_name: first_name, middle_name: middle_name, last_name: last_name, gender: gender, status: status}
+      end
+end

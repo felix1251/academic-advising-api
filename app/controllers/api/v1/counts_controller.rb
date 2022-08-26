@@ -1,14 +1,14 @@
 class Api::V1::CountsController < ApplicationController
   before_action :authorize_access_request!
-  VIEW_ROLES = %w[adviser dean system_admin].freeze
+  VIEW_ROLES = %w[F A].freeze
 
   def count
     @colleges = College.count
     @curriculum = Curriculum.count
     @subjects = Subject.count
     @department = Department.count
-    if current_user.role == "system_admin"
-      @user = User.count
+    if payload['aud'].include?("A")
+      @user = Staff.count + Admin.count + Student.count
       render json: {user_count: @user, college_count: @colleges, curriculum_count: @curriculum, subject_count: @subjects, department_count: @department }
     else
       render json: {college_count: @colleges, curriculum_count: @curriculum, subject_count: @subjects, department_count: @department }
@@ -21,6 +21,5 @@ class Api::V1::CountsController < ApplicationController
       verify_aud: true
     }
   end
-  
 end
   
