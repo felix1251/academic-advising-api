@@ -4,8 +4,9 @@ class CreateSubjects < ActiveRecord::Migration[5.2]
       t.string :code, null: false
       t.string :description
       t.integer :units, null: false
-      t.references :college, foreign_key: true , :on_delete => :cascade
-      t.references :curriculum, null: true, foreign_key: true , :on_delete => :cascade
+      t.references :college, foreign_key: true
+      t.string :prerequisite_condition
+      t.references :curriculum, null: true, foreign_key: true
       t.timestamps
     end
   end

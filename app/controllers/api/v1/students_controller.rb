@@ -17,9 +17,10 @@ class  Api::V1::StudentsController < ApplicationController
     if params[:id_number].present?
       student = Student.joins("LEFT JOIN colleges as c ON c.id = students.college_id
                         LEFT JOIN curriculums as cu ON cu.id = students.curriculum_id")
-                        .select('students.id, students.id_number, students.email, students.first_name,
+                        .select('students.id, students.id_number, students.first_name,
                         students.middle_name, students.last_name, students.suffix, students.college_id, 
-                        students.curriculum_id, c.code AS college_code, cu.code AS curriculum_code')
+                        students.curriculum_id, c.code AS college_code, cu.code AS curriculum_code,
+                        cu.description AS curriculum_description, c.description AS college_description')
                         .find_by!(id_number: params[:id_number])
                         
       render json: student

@@ -5,9 +5,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.string :fullname, null: false
       t.boolean :status, default: true
-      t.references :college, null: true, foreign_key: true, :on_delete => :cascade
-      t.references :curriculum, null: true, foreign_key: true, :on_delete => :cascade
-  
+      t.references :college, null: true, foreign_key: true
+      t.references :curriculum, null: true, foreign_key: true
       t.timestamps
     end
   end

@@ -6,7 +6,7 @@ class Api::V1::RecommendationsController < ApplicationController
     @recommendations  = Recommendation.joins("LEFT JOIN subjects as s ON s.id = recommendations.subject_id
                                       LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
                                       .select('recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description, c.description AS curriculum_description, s.units')
-                                      .order("curriculum_code")                
+                                      .order("curriculum_code, year")                
 
     render json: @recommendations
   end
@@ -18,13 +18,12 @@ class Api::V1::RecommendationsController < ApplicationController
                                   .select("recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description,
                                   c.description AS curriculum_description, s.units, CASE WHEN e.student_id IS NULL THEN 'NO' ELSE 'YES' END AS is_enrolled")
                                   .where("curriculum_id = #{params["student_curriculum_id"]}")
-                                  .where("semester = #{params["semester"]}")
                                   .where("is_enrolled = 'NO'")
     render json: @enrollments
   end
 
   def recommendation_year_sem
-    get_user = User.find_by_id(params["student_id"])
+    get_user = Student.find_by_id(params["student_id"])
     recom =  Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{params["student_id"]} AND 
                                   e.enrolled_id = recommendations.subject_id
                                   LEFT JOIN subjects as s ON s.id = recommendations.subject_id

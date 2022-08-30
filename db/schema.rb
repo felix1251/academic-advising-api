@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_26_064754) do
+ActiveRecord::Schema.define(version: 2022_08_30_125647) do
+
+  create_table "academic_years", force: :cascade do |t|
+    t.integer "from"
+    t.integer "to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admins", force: :cascade do |t|
+    t.string "username", null: false
     t.string "password_digest"
     t.string "first_name", null: false
     t.string "middle_name", null: false
@@ -22,8 +30,17 @@ ActiveRecord::Schema.define(version: 2022_07_26_064754) do
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
-    t.string "username"
+  end
+
+  create_table "advices", force: :cascade do |t|
+    t.integer "staff_id"
+    t.integer "student_id"
+    t.text "message"
+    t.text "subject_ids"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_id"], name: "index_advices_on_staff_id"
+    t.index ["student_id"], name: "index_advices_on_student_id"
   end
 
   create_table "colleges", force: :cascade do |t|
@@ -57,12 +74,14 @@ ActiveRecord::Schema.define(version: 2022_07_26_064754) do
 
   create_table "enrollments", force: :cascade do |t|
     t.integer "enrolled_id", null: false
+    t.integer "student_id", null: false
     t.integer "sem", null: false
+    t.string "grade", default: ""
     t.datetime "datetime_enrolled", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "grade", default: ""
-    t.integer "student_id"
+    t.integer "academic_year_id"
+    t.index ["academic_year_id"], name: "index_enrollments_on_academic_year_id"
     t.index ["enrolled_id"], name: "index_enrollments_on_enrolled_id"
     t.index ["student_id"], name: "index_enrollments_on_student_id"
   end
@@ -99,6 +118,7 @@ ActiveRecord::Schema.define(version: 2022_07_26_064754) do
   end
 
   create_table "staffs", force: :cascade do |t|
+    t.string "username", null: false
     t.string "password_digest"
     t.string "first_name", null: false
     t.string "middle_name", null: false
@@ -110,28 +130,25 @@ ActiveRecord::Schema.define(version: 2022_07_26_064754) do
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
-    t.string "username"
-    t.boolean "dean", default: false
+    t.boolean "is_dean", default: false
     t.index ["college_id"], name: "index_staffs_on_college_id"
     t.index ["curriculum_id"], name: "index_staffs_on_curriculum_id"
   end
 
   create_table "students", force: :cascade do |t|
+    t.string "username", null: false
     t.string "password_digest"
     t.string "first_name", null: false
     t.string "middle_name", null: false
     t.string "last_name", null: false
     t.string "suffix", default: ""
     t.string "gender", null: false
+    t.string "id_number", null: false
     t.integer "college_id", null: false
     t.integer "curriculum_id", null: false
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
-    t.string "username"
-    t.integer "id_number", null: false
     t.integer "adviser_id", null: false
     t.index ["adviser_id"], name: "index_students_on_adviser_id"
     t.index ["college_id"], name: "index_students_on_college_id"
@@ -143,21 +160,13 @@ ActiveRecord::Schema.define(version: 2022_07_26_064754) do
     t.string "description"
     t.integer "units", null: false
     t.integer "college_id"
+    t.string "prerequisite_condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "department_id"
-    t.string "prerequisite_condition"
     t.index ["code"], name: "index_subjects_on_code"
     t.index ["college_id"], name: "index_subjects_on_college_id"
     t.index ["department_id"], name: "index_subjects_on_department_id"
-  end
-
-  create_table "todos", force: :cascade do |t|
-    t.string "title"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -172,7 +181,6 @@ ActiveRecord::Schema.define(version: 2022_07_26_064754) do
     t.integer "role"
     t.string "reset_password_token"
     t.datetime "reset_password_token_expires_at"
-    t.integer "id_number"
     t.index ["college_id"], name: "index_users_on_college_id"
     t.index ["curriculum_id"], name: "index_users_on_curriculum_id"
     t.index ["email"], name: "index_users_on_email"
