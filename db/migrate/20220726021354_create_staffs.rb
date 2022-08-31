@@ -11,7 +11,7 @@ class CreateStaffs < ActiveRecord::Migration[5.2]
       t.references :college, null: false, foreign_key: true
       t.references :curriculum, null: true, foreign_key: true
       t.boolean :status, default: true
-      
+    
       t.timestamps
     end
   end

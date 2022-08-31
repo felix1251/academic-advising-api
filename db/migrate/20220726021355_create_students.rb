@@ -9,7 +9,7 @@ class CreateStudents < ActiveRecord::Migration[5.2]
       t.string :suffix, default: ""
       t.string :gender, null: false
       t.string :id_number, null: false
-      t.references :adviser, null: false, foreign_key: { to_table: 'staff' } 
+      t.references :adviser, null: false, foreign_key: { to_table: 'staffs' } 
       t.references :college, null: false, foreign_key: true
       t.references :curriculum, null: false, foreign_key: true
       t.boolean :status, default: true
