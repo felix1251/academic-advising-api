@@ -3,7 +3,7 @@ class Api::V1::AdminsController < ApplicationController
 
   # GET /admins
   def index
-    @admins =   Admin.all
+    @admins = Admin.all
     render json: @admins
   end
 
