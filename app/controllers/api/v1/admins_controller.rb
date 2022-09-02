@@ -1,9 +1,9 @@
 class Api::V1::AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :update, :destroy]
 
-  # GET /admins
+  # GET /admins try
   def index
-    @admins =   Admin.all
+    @admins = Admin.all
     render json: @admins
   end
 
