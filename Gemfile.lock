@@ -131,7 +131,6 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.7.1)
     rspec-core (3.9.3)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.4)
@@ -186,7 +185,6 @@ DEPENDENCIES
   puma (~> 3.12)
   rack-cors
   rails (~> 5.2.7, >= 5.2.8)
-  redis (~> 4.0)
   rspec-rails (~> 3.7)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -196,4 +194,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.3.12
+   2.3.25
