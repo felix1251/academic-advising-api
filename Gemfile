@@ -11,7 +11,7 @@ gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+# gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Use JWTSessions to build JWT auth

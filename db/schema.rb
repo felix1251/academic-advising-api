@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_30_125647) do
-
+ActiveRecord::Schema.define(version: 2022_11_20_043539) do
   create_table "academic_years", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "from"
     t.integer "to"
@@ -126,12 +125,12 @@ ActiveRecord::Schema.define(version: 2022_08_30_125647) do
     t.string "suffix", default: ""
     t.string "gender", null: false
     t.bigint "college_id", null: false
-    t.bigint "curriculum_id"
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "department_id"
     t.index ["college_id"], name: "index_staffs_on_college_id"
-    t.index ["curriculum_id"], name: "index_staffs_on_curriculum_id"
+    t.index ["department_id"], name: "index_staffs_on_department_id"
   end
 
   create_table "students", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -177,7 +176,7 @@ ActiveRecord::Schema.define(version: 2022_08_30_125647) do
   add_foreign_key "recommendations", "curriculums"
   add_foreign_key "recommendations", "subjects"
   add_foreign_key "staffs", "colleges"
-  add_foreign_key "staffs", "curriculums"
+  add_foreign_key "staffs", "departments"
   add_foreign_key "students", "colleges"
   add_foreign_key "students", "curriculums"
   add_foreign_key "students", "staffs", column: "adviser_id"

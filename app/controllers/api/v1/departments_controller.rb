@@ -8,6 +8,11 @@ class Api::V1::DepartmentsController < ApplicationController
   def index
     @departments = Department.joins("LEFT JOIN colleges as c ON c.id = departments.college_id")
                               .select("departments.*, c.code AS  college_code")
+
+    if params[:college_id].present?
+      @departments = @departments.where(college_id: params[:college_id])
+    end
+
     render json: @departments
   end
 

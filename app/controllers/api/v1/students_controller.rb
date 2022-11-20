@@ -3,7 +3,10 @@ class  Api::V1::StudentsController < ApplicationController
 
   # GET /students
   def index
-    @students = Student.all
+    @students = Student.joins("LEFT JOIN colleges AS co ON co.id = students.college_id 
+                              LEFT JOIN curriculums AS cu ON cu.id = students.curriculum_id
+                              LEFT JOIN staffs AS stf ON stf.id = students.adviser_id")
+                        .select("students.*, co.code AS college_code, cu.code AS curriculum_code, concat(stf.last_name,', ',stf.first_name) AS adviser_name")
 
     render json: @students
   end
@@ -32,7 +35,6 @@ class  Api::V1::StudentsController < ApplicationController
   # POST /students
   def create
     @student = Student.new(student_params)
-
     if @student.save
       render json: @student, status: :created
     else
@@ -62,6 +64,6 @@ class  Api::V1::StudentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def student_params
-      params.fetch(:student, {})
+      params.require(:student).permit(:id_number, :username, :password, :password_confirmation, :first_name, :middle_name, :last_name, :suffix, :gender, :college_id, :curriculum_id, :adviser_id)
     end
 end
