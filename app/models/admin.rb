@@ -5,6 +5,6 @@ class Admin < ApplicationRecord
       enum gender: {male: "male", female: "female"}
       
       def attributes
-            { id: id, first_name: first_name, middle_name: middle_name, last_name: last_name, gender: gender, status: status}
+            super.except('password_digest', 'reset_password_token', 'reset_password_token_expires_at')
       end
 end
