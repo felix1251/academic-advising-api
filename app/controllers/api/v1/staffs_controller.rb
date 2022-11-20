@@ -3,8 +3,9 @@ class  Api::V1::StaffsController < ApplicationController
 
   # GET /staffs
   def index
-    @staffs = Staff.all
-
+    @staffs = Staff.joins("LEFT JOIN departments AS dp ON dp.id = staffs.department_id
+                          LEFT JOIN colleges AS co ON co.id = staffs.college_id")
+                          .select("staffs.*, co.code AS college_code, dp.code AS department_code")
     render json: @staffs
   end
 
@@ -45,6 +46,6 @@ class  Api::V1::StaffsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def staff_params
-      params.fetch(:staff, {})
+      params.require(:staff).permit(:username, :password, :password_confirmation, :first_name, :middle_name, :last_name, :suffix, :gender, :college_id, :department_id)
     end
 end
