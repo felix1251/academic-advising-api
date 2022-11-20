@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_043539) do
+ActiveRecord::Schema.define(version: 2022_11_20_142645) do
+
   create_table "academic_years", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "from"
     t.integer "to"
@@ -129,6 +130,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_043539) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "department_id"
+    t.boolean "is_dean", default: false
     t.index ["college_id"], name: "index_staffs_on_college_id"
     t.index ["department_id"], name: "index_staffs_on_department_id"
   end
