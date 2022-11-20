@@ -3,9 +3,13 @@ class  Api::V1::StaffsController < ApplicationController
 
   # GET /staffs
   def index
-    @staffs = Staff.joins("LEFT JOIN departments AS dp ON dp.id = staffs.department_id
-                          LEFT JOIN colleges AS co ON co.id = staffs.college_id")
+    @staffs = Staff.joins("LEFT JOIN departments AS dp ON dp.id = staffs.department_id LEFT JOIN colleges AS co ON co.id = staffs.college_id")
                           .select("staffs.*, co.code AS college_code, dp.code AS department_code")
+
+    if params[:college_id].present?
+      @staffs = @staffs.where(college_id: params[:college_id])
+    end
+  
     render json: @staffs
   end
 

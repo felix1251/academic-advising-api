@@ -9,4 +9,8 @@ class Student < ApplicationRecord
 
       # validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
       validates :username, presence: true, uniqueness: { case_sensitive: false }
+
+      def attributes
+            super.except('password_digest', 'reset_password_token', 'reset_password_token_expires_at')
+      end
 end

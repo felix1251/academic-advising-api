@@ -7,11 +7,17 @@ class Api::V1::CurriculumsController < ApplicationController
 
   # GET /curriculums
   def index
-    @curriculums  = Curriculum.find_by_sql("SELECT cu.*, c.code As college_code, d.code AS department_code,
-                                          d.description AS department_description
-                                          FROM curriculums AS cu
-                                          INNER JOIN colleges AS c ON c.id = cu.college_id 
-                                          INNER JOIN departments AS d ON d.id = cu.department_id")
+    sql = "SELECT cu.*, c.code As college_code, d.code AS department_code,"
+    sql += " d.description AS department_description"
+    sql += " FROM curriculums AS cu"
+    sql += " INNER JOIN colleges AS c ON c.id = cu.college_id"
+    sql += " INNER JOIN departments AS d ON d.id = cu.department_id"
+
+    str = ""
+    str = " WHERE cu.college_id = #{params[:college_id]}" if params[:college_id].present?
+
+    @curriculums  = Curriculum.find_by_sql(sql+str)
+    
     render json: @curriculums
   end
 
