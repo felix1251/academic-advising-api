@@ -1,4 +1,5 @@
 class Api::V1::AdvicesController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_advice, only: [:show, :update, :destroy]
 
   # GET /advices
@@ -10,6 +11,11 @@ class Api::V1::AdvicesController < ApplicationController
   # GET /advices/1
   def show
     render json: @advice
+  end
+
+  def get_stud_advising
+    studs_count = Student.where(adviser_id: payload['user_id']).count
+    render json: { studs_count: studs_count }
   end
 
   # POST /advices
