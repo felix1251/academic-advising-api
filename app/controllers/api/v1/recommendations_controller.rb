@@ -32,21 +32,22 @@ class Api::V1::RecommendationsController < ApplicationController
                                   .select("recommendations.*, s.code AS subject_code, c.code AS curriculum_code, s.description AS subject_description, c.description AS curriculum_description,
                                   en.grade, s.units, c.id AS curriculum_id, CASE WHEN e.student_id IS NULL THEN 'NO' ELSE 'YES' END AS is_enrolled")
                                   .where("curriculum_id = #{get_user.curriculum_id}")
-  
+
     years = [1, 2, 3, 4]
     sems = [1,2,3]
     recom_year_list = {}
     recom_sem_list = {}
-    
+
     years.each do |year|
       object = []
-      sems.each do |sem|  
+      sems.each do |sem|
         sem_value = recom.where("year = #{year}").where("semester = #{sem}") rescue 0
         set =  {sem: sem, data: sem_value }
         object.push(set)
       end
       recom_year_list[year] = object
-    end             
+    end   
+
     render json: { rows: recom_year_list, selected_rows: recom.where("en.grade != null").collect(&:subject_id) }
   end
 
