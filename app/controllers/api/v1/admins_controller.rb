@@ -1,4 +1,5 @@
 class Api::V1::AdminsController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_admin, only: [:show, :update, :destroy]
 
   # GET /admins try

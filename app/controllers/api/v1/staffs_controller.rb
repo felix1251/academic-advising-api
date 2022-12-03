@@ -1,4 +1,5 @@
 class  Api::V1::StaffsController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_staff, only: [:show, :update, :destroy]
 
   # GET /staffs

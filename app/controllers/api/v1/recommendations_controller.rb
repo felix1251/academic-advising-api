@@ -1,4 +1,5 @@
 class Api::V1::RecommendationsController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_recommendation, only: [:show, :update, :destroy]
 
   # GET /recommendations

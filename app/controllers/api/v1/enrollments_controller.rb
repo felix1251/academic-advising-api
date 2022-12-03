@@ -1,4 +1,5 @@
 class Api::V1::EnrollmentsController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_enrollment, only: [:show, :update, :destroy]
 
   # GET /enrollments
