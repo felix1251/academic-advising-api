@@ -11,6 +11,11 @@ class  Api::V1::StudentsController < ApplicationController
     render json: @students
   end
 
+  def adviser_students
+    stud = Student.where(adviser_id: params[:adviser_id])
+    render json: stud
+  end
+
   # GET /students/1
   def show
     render json: @student
