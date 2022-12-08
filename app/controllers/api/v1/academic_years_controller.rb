@@ -1,4 +1,5 @@
 class Api::V1::AcademicYearsController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_academic_year, only: [:show, :update, :destroy]
 
   # GET /academic_years

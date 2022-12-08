@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-
   before_action :authorize_access_request!
   before_action :set_user, only: [:show, :update, :destroy]
 
