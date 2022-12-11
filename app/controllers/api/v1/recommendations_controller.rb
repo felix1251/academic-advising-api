@@ -40,7 +40,7 @@ class Api::V1::RecommendationsController < ApplicationController
                                         LEFT JOIN enrollments as en ON en.enrolled_id = recommendations.subject_id AND en.student_id = #{get_user.id}
                                         LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
                                         .select("en.grade, s.units, c.id AS curriculum_id")
-                                        .where("curriculum_id = #{get_user.curriculum_id} AND (en.grade NOT IN (#{["5", "INC", "P", "DRP", "IP"].join(",")}) OR en.grade != null)")
+                                        .where("curriculum_id = #{get_user.curriculum_id} AND (en.grade != null OR en.grade NOT IN (#{["5", "INC", "P", "DRP", "IP"].join(",")}))")
                                         .sum(:units)
 
     render json: {total_units: units_sum_total, remaining_units: units_sum_remaining}
@@ -72,7 +72,7 @@ class Api::V1::RecommendationsController < ApplicationController
       recom_year_list[year] = object
     end   
 
-    render json: { rows: recom_year_list, selected_rows: recom.where("en.grade != null").collect(&:subject_id) }
+    render json: { rows: recom_year_list, selected_rows: recom.where("en.grade != null OR en.grade NOT IN (#{["5", "INC", "P", "DRP", "IP"].join(",")}").collect(&:subject_id) }
   end
 
   def check_if_prereq_exist
