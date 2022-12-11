@@ -21,10 +21,10 @@ class ApplicationController < ActionController::API
   end
 
   def grade_list
-    list_a = ["INC", "P", "DRP", "IP", "3", "5"]
     list_b = ["1", "1.25", "1.5", "1.75"]
     list_c = ["2", "2.25", "2.5", "2.75"]
-
+    list_a = ["3", "5", "INC", "P", "DRP", "IP"]
+  
     return list_a + list_b + list_c
   end
 
