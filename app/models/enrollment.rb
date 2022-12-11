@@ -3,7 +3,7 @@ class Enrollment < ApplicationRecord
     belongs_to :enrolled, class_name: "Subject"
     belongs_to :academic_year
 
-    validates :enrolled_id, presence: true, uniqueness: true
+    validates :enrolled_id, presence: true,  uniqueness: { scope: :student_id }
     validates :check_grade, :if => :grade_changed?
 
     def check_grade
