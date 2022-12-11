@@ -1,3 +1,4 @@
 USE academic_advising;
 
-select * from admins;
+select * from enrollments;
+select * from students;

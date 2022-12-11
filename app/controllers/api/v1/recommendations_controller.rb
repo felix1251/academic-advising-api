@@ -23,6 +23,29 @@ class Api::V1::RecommendationsController < ApplicationController
     render json: @enrollments
   end
 
+  def get_student_remaining_units
+    get_user = Student.find_by_id(payload["user_id"])
+    units_sum_total = Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{get_user.id} AND 
+                                      e.enrolled_id = recommendations.subject_id
+                                      LEFT JOIN subjects as s ON s.id = recommendations.subject_id
+                                      LEFT JOIN enrollments as en ON en.enrolled_id = recommendations.subject_id AND en.student_id = #{get_user.id}
+                                      LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
+                                      .select("en.grade, s.units, c.id AS curriculum_id")
+                                      .where("curriculum_id = #{get_user.curriculum_id}")
+                                      .sum(:units)
+
+    units_sum_remaining = Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{get_user.id} AND 
+                                        e.enrolled_id = recommendations.subject_id
+                                        LEFT JOIN subjects as s ON s.id = recommendations.subject_id
+                                        LEFT JOIN enrollments as en ON en.enrolled_id = recommendations.subject_id AND en.student_id = #{get_user.id}
+                                        LEFT JOIN curriculums as c ON c.id = recommendations.curriculum_id")
+                                        .select("en.grade, s.units, c.id AS curriculum_id")
+                                        .where("curriculum_id = #{get_user.curriculum_id} AND en.grade != null")
+                                        .sum(:units)
+
+    render json: {total_units: units_sum_total, remaining_units: units_sum_remaining}
+  end
+
   def recommendation_year_sem
     get_user = Student.find_by_id(params["student_id"])
     recom =  Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{params["student_id"]} AND 
