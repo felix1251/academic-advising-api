@@ -5,7 +5,7 @@ class User < ApplicationRecord
   belongs_to :curriculum, optional: true
   has_many :todos, :dependent => :delete_all
   
-  enum role: %i[student adviser dean system_admin].freeze
+  # enum role: %i[student adviser dean system_admin].freeze
 
   validates :email,
             format: { with: URI::MailTo::EMAIL_REGEXP },
