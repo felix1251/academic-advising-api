@@ -7,7 +7,7 @@ class Enrollment < ApplicationRecord
     validates :check_grade, :if => :grade_changed?
 
     def check_grade
-        list_a = ["INC", "P", "DRP", "IP", "3"]
+        list_a = ["INC", "P", "DRP", "IP", "3", "5"]
         list_b = ["1", "1.25", "1.5", "1.75"]
         list_c = ["2", "2.25", "2.5", "2.75"]
         list = list_a + list_b + list_c
