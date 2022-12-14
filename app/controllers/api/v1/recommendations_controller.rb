@@ -47,7 +47,7 @@ class Api::V1::RecommendationsController < ApplicationController
   end
 
   def recommendation_year_sem
-    get_user = Student.find_by_id(params["student_id"])
+    get_user = Student.find(params["student_id"])
     recom =  Recommendation.joins("LEFT JOIN enrollments AS e ON e.student_id = #{params["student_id"]} AND 
                                   e.enrolled_id = recommendations.subject_id
                                   LEFT JOIN subjects as s ON s.id = recommendations.subject_id
