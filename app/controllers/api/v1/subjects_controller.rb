@@ -11,6 +11,7 @@ class Api::V1::SubjectsController < ApplicationController
                                 LEFT JOIN departments as d ON d.id = subjects.department_id")
                                 .select('subjects.*, c.code AS college_code, d.code AS department_code,
                                 d.description AS department_description ')
+                                # .order("subjects.code")
     render json: @subjects
   end
 

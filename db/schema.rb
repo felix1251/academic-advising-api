@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_142645) do
+ActiveRecord::Schema.define(version: 2022_12_14_013130) do
 
   create_table "academic_years", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "from"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_142645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "department_id"
+    t.boolean "ghost", default: false
     t.index ["code"], name: "index_subjects_on_code"
     t.index ["college_id"], name: "index_subjects_on_college_id"
     t.index ["department_id"], name: "index_subjects_on_department_id"
