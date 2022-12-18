@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_14_021004) do
+ActiveRecord::Schema.define(version: 2022_12_18_105610) do
 
   create_table "academic_years", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "from"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2022_12_14_021004) do
     t.text "subject_ids"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sender", null: false
     t.index ["staff_id"], name: "index_advices_on_staff_id"
     t.index ["student_id"], name: "index_advices_on_student_id"
   end
