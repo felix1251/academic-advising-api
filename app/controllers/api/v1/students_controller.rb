@@ -17,6 +17,11 @@ class  Api::V1::StudentsController < ApplicationController
     render json: stud
   end
 
+  def get_stud_adviser
+    adviser = Staff.find(params[:adviser_id])
+    render json: adviser
+  end
+
   # GET /students/1
   def show
     render json: @student

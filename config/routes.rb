@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :recommendations
       resources :departments
       resources :academic_years
+      get 'get_stud_adviser', controller: :students, action: :get_stud_adviser
       get 'get_student_remaining_units', controller: :recommendations, action: :get_student_remaining_units
       get 'adviser_students', controller: :students, action: :adviser_students
       get 'get_stud_advising', controller: :advices, action: :get_stud_advising
